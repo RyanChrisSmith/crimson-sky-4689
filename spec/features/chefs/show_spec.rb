@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Dishes Show page" do
+RSpec.describe 'Chefs Show page' do 
   before :each do
     @gordon = Chef.create!(name: "Gordon Ramsey")
     @jj = Chef.create!(name: "JJ Johnson")
@@ -44,26 +44,19 @@ RSpec.describe "Dishes Show page" do
     DishIngredient.create!(dish: @jambalaya, ingredient: @wheat)
     DishIngredient.create!(dish: @jambalaya, ingredient: @flour)
   end
-  it 'will dispaly the ingredients and chef of the specific dish' do
-    visit "/dishes/#{@pie.id}"
 
-    expect(page).to have_content("Dish : Key Lime Pie")
-    expect(page).to have_content("Description : tasty dessert")
-    expect(page).to have_content("Ingredients:")
-    expect(page).to have_content("Salt")
-    expect(page).to have_content("Wheat")
-    expect(page).to have_content("Sugar")
-    expect(page).to have_content("Water")
-    expect(page).to have_content("Flour")
-
-    expect(page).to have_content("Chef : Gordon Ramsey")
-    expect(page).to_not have_content("Chef : JJ Johnson")
+  it '' do 
+    # When I visit a chef's show page
+    visit "/chefs/#{@gordon.id}"
+    # I see the name of that chef
+    expect(page).to have_content("Gordon Ramsey")
+    expect(page).to_not have_content("Wolfgang Puck")
+    # And I see a link to view a list of all ingredients that this chef uses in their dishes.
+    expect(page).to have_link("All ingredients used in all dishes")
+    # When I click on that link
+    click_link("All ingredients used in all dishes")
+    # I'm taken to a chef's ingredient index page
+    expect(current_path).to eq("/chefs/#{@gordon.id}/ingredients")
+    # and I can see a unique list of names of all the ingredients that this chef uses.
   end
-
-  it 'will show the total calorie count for the dish' do
-    visit "/dishes/#{@nachos.id}"
-
-    expect(page).to have_content("Total Calories : 230")
-  end
-
 end
