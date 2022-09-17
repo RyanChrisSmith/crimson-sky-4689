@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Chefs Show page' do
+RSpec.describe 'Chefs Ingredients index page' do
   before :each do
     @gordon = Chef.create!(name: "Gordon Ramsey")
     @jj = Chef.create!(name: "JJ Johnson")
@@ -44,15 +44,14 @@ RSpec.describe 'Chefs Show page' do
     DishIngredient.create!(dish: @jambalaya, ingredient: @wheat)
     DishIngredient.create!(dish: @jambalaya, ingredient: @flour)
   end
+  it 'will show a unique list of all the ingredients this chef uses' do
+    visit "/chefs/#{@gordon.id}/ingredients"
 
-  it '' do
-    visit "/chefs/#{@gordon.id}"
-
-    expect(page).to have_content("Gordon Ramsey")
-    expect(page).to_not have_content("Wolfgang Puck")
-    expect(page).to have_link("All ingredients used in all dishes")
-
-    click_link("All ingredients used in all dishes")
-    expect(current_path).to eq("/chefs/#{@gordon.id}/ingredients")
+    expect(page).to have_content("Salt")
+    expect(page).to have_content("Wheat")
+    expect(page).to have_content("Sugar")
+    expect(page).to have_content("Water")
+    expect(page).to have_content("Flour")
   end
+
 end
