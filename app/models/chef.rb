@@ -12,4 +12,8 @@ class Chef < ApplicationRecord
     end
     uniq_ingredients.uniq
   end
+
+  def most_popular_ingredients
+   require 'pry' ; binding.pry
+  end
 end

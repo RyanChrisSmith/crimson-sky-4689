@@ -56,5 +56,9 @@ RSpec.describe Chef, type: :model do
     it '#all_uniq_ingredients' do
       expect(@gordon.all_uniq_ingredients).to eq([@salt, @wheat, @sugar, @water, @flour])
     end
+
+    it '#most_popular_ingredients' do
+      expect(@jj.most_popular_ingredients).to eq([@salt, @wheat, @sugar])
+    end
   end
 end

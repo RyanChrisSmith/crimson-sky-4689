@@ -17,11 +17,13 @@ RSpec.describe 'Chefs Ingredients index page' do
     @sugar = Ingredient.create!(name: "Sugar", calories: 130)
     @water = Ingredient.create!(name: "Water", calories: 1)
     @flour = Ingredient.create!(name: "Flour", calories: 100)
+    @rosemary = Ingredient.create!(name: "Rosemary", calories: 90)
     DishIngredient.create!(dish: @pie, ingredient: @salt)
     DishIngredient.create!(dish: @pie, ingredient: @wheat)
     DishIngredient.create!(dish: @pie, ingredient: @sugar)
     DishIngredient.create!(dish: @pie, ingredient: @water)
     DishIngredient.create!(dish: @pie, ingredient: @flour)
+    DishIngredient.create!(dish: @pie, ingredient: @rosemary)
     DishIngredient.create!(dish: @nachos, ingredient: @salt )
     DishIngredient.create!(dish: @nachos, ingredient: @wheat )
     DishIngredient.create!(dish: @nachos, ingredient: @water )
@@ -52,6 +54,27 @@ RSpec.describe 'Chefs Ingredients index page' do
     expect(page).to have_content("Sugar")
     expect(page).to have_content("Water")
     expect(page).to have_content("Flour")
+    expect(page).to have_content("Rosemary")
+
+    visit "/chefs/#{@jj.id}/ingredients"
+
+    expect(page).to have_content("Salt")
+    expect(page).to have_content("Wheat")
+    expect(page).to have_content("Sugar")
+    expect(page).to have_content("Water")
+    expect(page).to have_content("Flour")
+    expect(page).to_not have_content("Rosemary")
+  end
+
+  it 'will show the most popular dishes for that chef' do
+    # When I visit a chef's show page
+    visit "/chefs/#{@wolf.id}/ingredients"
+    # I see the three most popular ingredients that the chef uses in their dishes
+    within '.most_popular' do
+      expect(page).to have_content("Salt")
+      expect(page).to have_content("Wheat")
+      expect(page).to have_content("Sugar")
+    end
   end
 
 end
