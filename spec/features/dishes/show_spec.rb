@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Dishes Show page" do 
+RSpec.describe "Dishes Show page" do
   before :each do
     @gordon = Chef.create!(name: "Gordon Ramsey")
     @jj = Chef.create!(name: "JJ Johnson")
@@ -46,13 +46,18 @@ RSpec.describe "Dishes Show page" do
   end
   it '' do
 # When I visit a dish's show page
-    visit "/dishes/#{dish.id}"
+    visit "/dishes/#{@pie.id}"
 # I see the dish’s name and description
-    expect(page).to have_content("dish name")
-    expect(page).to have_content("description")
-    expect(page).to have_content("ingredients")
+    expect(page).to have_content("Dish : Key Lime Pie")
+    expect(page).to have_content("Description : tasty dessert")
+    expect(page).to have_content("Ingredients:")
+    expect(page).to have_content("Salt")
+    expect(page).to have_content("Wheat")
+    expect(page).to have_content("Sugar")
+    expect(page).to have_content("Water")
+    expect(page).to have_content("Flour")
 # And I see a list of ingredients for that dish
-    expect(page).to have_content("chefs name")
+    expect(page).to have_content("Chef : Gordon Ramsey")
 # And I see the chef's name.
   end
 end
