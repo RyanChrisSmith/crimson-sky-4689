@@ -44,10 +44,9 @@ RSpec.describe "Dishes Show page" do
     DishIngredient.create!(dish: @jambalaya, ingredient: @wheat)
     DishIngredient.create!(dish: @jambalaya, ingredient: @flour)
   end
-  it '' do
-# When I visit a dish's show page
+  it 'will dispaly the ingredients and chef of the specific dish' do
     visit "/dishes/#{@pie.id}"
-# I see the dish’s name and description
+
     expect(page).to have_content("Dish : Key Lime Pie")
     expect(page).to have_content("Description : tasty dessert")
     expect(page).to have_content("Ingredients:")
@@ -56,8 +55,14 @@ RSpec.describe "Dishes Show page" do
     expect(page).to have_content("Sugar")
     expect(page).to have_content("Water")
     expect(page).to have_content("Flour")
-# And I see a list of ingredients for that dish
+
     expect(page).to have_content("Chef : Gordon Ramsey")
-# And I see the chef's name.
+    expect(page).to_not have_content("Chef : JJ Johnson")
+  end
+
+  it 'will show the total calorie count for the dish' do
+    visit "/dishes/#{@nachos.id}"
+
+    expect(page).to have_content("Total Calories : 600")
   end
 end
